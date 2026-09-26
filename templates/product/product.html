@@ -1,0 +1,24 @@
+{% extends "base/base.html" %}
+{% block title %}{{ product.product_name }} — Simple Store{% endblock %}
+{% block start %}
+<p><a href="{% url 'index' %}">← Back to products</a></p>
+<section class="product-detail">
+  <div>
+    {% if product.product_images.first %}
+      <img src="{{ product.product_images.first.image.url }}" alt="{{ product.product_name }}">
+    {% else %}
+      <p>No image uploaded.</p>
+    {% endif %}
+  </div>
+  <div>
+    <h2>{{ product.product_name }}</h2>
+    <p class="price">${{ product.price }}.00</p>
+    <p>{{ product.product_desription }}</p>
+    {% if product.size_variant.count %}
+      <p><strong>Sizes:</strong> {% for size in product.size_variant.all %}{{ size.size_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+    {% endif %}
+    <p class="notice">Cart and checkout are not available in this demo yet.</p>
+    <button type="button" disabled>Add to cart (coming soon)</button>
+  </div>
+</section>
+{% endblock %}

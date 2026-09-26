@@ -1,0 +1,22 @@
+{% extends "base/base.html" %}
+{% block title %}Simple Store — Demo{% endblock %}
+{% block start %}
+<h2>Rudra Enterprises</h2>
+
+
+<h3>Products</h3>
+{% if products %}
+  <section class="products">
+    {% for product in products %}
+      <article class="product">
+        {% if product.product_images.first %}<img src="{{ product.product_images.first.image.url }}" alt="{{ product.product_name }}">{% endif %}
+        <h4><a href="{% url 'get_product' product.slug %}">{{ product.product_name }}</a></h4>
+        <p class="price">${{ product.price }}.00</p>
+        <a class="button" href="{% url 'get_product' product.slug %}">View product</a>
+      </article>
+    {% endfor %}
+  </section>
+{% else %}
+  <p>No products have been added yet. Add products through <a href="/admin/">the admin panel</a>.</p>
+{% endif %}
+{% endblock %}
